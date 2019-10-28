@@ -1,0 +1,17 @@
+{
+    "name": "crafterr/pw",
+    "type": "drupal-module",
+    "description": "Provides base paragraph features.",
+    "keywords": ["Drupal"],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1"
+    },
+    "authors": [
+        {
+            "name": "Adam Pietras",
+            "email": "adam@crafter.net.pl"
+        }
+    ]
+}

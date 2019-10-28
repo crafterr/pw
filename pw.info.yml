@@ -1,0 +1,16 @@
+name: 'Pw'
+type: module
+description: 'Provides base paragraph features.'
+core: 8.x
+package: 'PixelWeb'
+dependencies:
+  - entity_reference_revisions
+  - features
+  - field
+  - file
+  - image
+  - link
+  - link_attributes
+  - options
+  - paragraphs
+  - text

@@ -1,0 +1,53 @@
+<?php
+use Drupal\field\Entity\FieldStorageConfig;
+
+const FIELD_TITLE = 'field_pw_title';
+
+const FIELD_SUBTITLE = 'field_pw_subtitle';
+
+const FIELD_NUMBER = 'field_pw_number';
+
+const FIELD_LONG_TEXT = 'field_pw_long_text';
+
+const FIELD_IMAGE = 'field_pw_image';
+
+const FIELD_IMAGE_BACKGROUND = 'field_pw_image_background';
+
+
+/**
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function pw_uninstall(){
+  $field_title = FieldStorageConfig::loadByName('paragraph', FIELD_TITLE);
+  $field_subtitle = FieldStorageConfig::loadByName('paragraph', FIELD_SUBTITLE);
+  $field_number = FieldStorageConfig::loadByName('paragraph', FIELD_NUMBER);
+  $field_long_text = FieldStorageConfig::loadByName('paragraph', FIELD_LONG_TEXT);
+  $field_image = FieldStorageConfig::loadByName('paragraph', FIELD_IMAGE);
+  $field_image_background = FieldStorageConfig::loadByName('paragraph', FIELD_IMAGE_BACKGROUND);
+
+  if ($field_title) {
+    $field_title->delete();
+  }
+  if ($field_subtitle) {
+    $field_subtitle->delete();
+  }
+  if ($field_number) {
+    $field_number->delete();
+  }
+  if ($field_long_text) {
+    $field_long_text->delete();
+  }
+  if ($field_image) {
+    $field_image->delete();
+  }
+  if ($field_image) {
+    $field_image->delete();
+  }
+  if ($field_image_background) {
+    $field_image_background->delete();
+  }
+}
+
+
