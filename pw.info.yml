@@ -4,11 +4,13 @@ description: 'Provides base paragraph features.'
 core: 8.x
 package: 'PixelWeb'
 dependencies:
+  - content_translation
   - entity_reference_revisions
   - features
   - field
   - file
   - image
+  - language
   - link
   - link_attributes
   - options
