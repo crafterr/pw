@@ -1,17 +1,21 @@
 <?php
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Config\FileStorage;
+const FIELD_PW_TITLE = 'field_pw_title';
 
-const FIELD_TITLE = 'field_pw_title';
+const FIELD_PW_SUBTITLE = 'field_pw_subtitle';
 
-const FIELD_SUBTITLE = 'field_pw_subtitle';
+const FIELD_PW_NUMBER = 'field_pw_number';
 
-const FIELD_NUMBER = 'field_pw_number';
+const FIELD_PW_LONG_TEXT = 'field_pw_long_text';
 
-const FIELD_LONG_TEXT = 'field_pw_long_text';
+const FIELD_PW_IMAGE = 'field_pw_image';
 
-const FIELD_IMAGE = 'field_pw_image';
+const FIELD_PW_LINK = 'field_pw_link';
 
-const FIELD_IMAGE_BACKGROUND = 'field_pw_image_background';
+const FIELD_PW_ICON = 'field_pw_icon';
+
+const FIELD_PW_IMAGE_BACKGROUND = 'field_pw_image_background';
 
 
 /**
@@ -20,12 +24,14 @@ const FIELD_IMAGE_BACKGROUND = 'field_pw_image_background';
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function pw_uninstall(){
-  $field_title = FieldStorageConfig::loadByName('paragraph', FIELD_TITLE);
-  $field_subtitle = FieldStorageConfig::loadByName('paragraph', FIELD_SUBTITLE);
-  $field_number = FieldStorageConfig::loadByName('paragraph', FIELD_NUMBER);
-  $field_long_text = FieldStorageConfig::loadByName('paragraph', FIELD_LONG_TEXT);
-  $field_image = FieldStorageConfig::loadByName('paragraph', FIELD_IMAGE);
-  $field_image_background = FieldStorageConfig::loadByName('paragraph', FIELD_IMAGE_BACKGROUND);
+  $field_title = FieldStorageConfig::loadByName('paragraph', FIELD_PW_TITLE);
+  $field_subtitle = FieldStorageConfig::loadByName('paragraph', FIELD_PW_SUBTITLE);
+  $field_number = FieldStorageConfig::loadByName('paragraph', FIELD_PW_NUMBER);
+  $field_long_text = FieldStorageConfig::loadByName('paragraph', FIELD_PW_LONG_TEXT);
+  $field_image = FieldStorageConfig::loadByName('paragraph', FIELD_PW_IMAGE);
+  $field_link = FieldStorageConfig::loadByName('paragraph', FIELD_PW_LINK);
+  $field_icon = FieldStorageConfig::loadByName('paragraph', FIELD_PW_ICON);
+  $field_image_background = FieldStorageConfig::loadByName('paragraph', FIELD_PW_IMAGE_BACKGROUND);
 
   if ($field_title) {
     $field_title->delete();
@@ -48,6 +54,41 @@ function pw_uninstall(){
   if ($field_image_background) {
     $field_image_background->delete();
   }
+  if ($field_link) {
+    $field_link->delete();
+  }
+  if ($field_icon) {
+    $field_icon->delete();
+  }
 }
 
 
+/**
+ * Add new action configurations.
+ */
+function pw_update_8001() {
+  $configsName = 'field.storage.paragraph.field_pw_icon';
+
+  pw_update_config($configsName);
+  return 'Added new configurations.';
+}
+
+function pw_update_8002() {
+  $configsName = 'field.storage.paragraph.field_pw_link';
+
+  pw_update_config($configsName);
+  return 'Added new configurations.';
+}
+
+
+function pw_update_config($configsNames) {
+  $config_path    = drupal_get_path('module', 'pw') . '/config/install';
+  $source         = new FileStorage($config_path);
+
+  // Obtain the storage manager for field storage bases
+  // Create a new field from the yaml configuration and save
+  \Drupal::entityTypeManager()->getStorage('field_storage_config')
+    ->create($source->read($configsNames))
+    ->save();
+
+}
